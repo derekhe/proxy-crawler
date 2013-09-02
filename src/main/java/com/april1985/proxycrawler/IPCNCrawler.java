@@ -13,10 +13,19 @@ import java.util.regex.Pattern;
 public class IPCNCrawler extends Crawler {
     @Override
     public List<Proxy> fetch() throws IOException, JaxenException {
+        List<Proxy> proxyList = getFromPage("http://proxy.ipcn.org/proxylist.html");
+        List<Proxy> proxyLists2 = getFromPage("http://proxy.ipcn.org/proxylist2.html");
+
+        proxyList.addAll(proxyLists2);
+
+        return proxyList;
+    }
+
+    private List<Proxy> getFromPage(String url) throws IOException, JaxenException {
         WebClient webClient = new WebClient();
         webClient.setJavaScriptEnabled(false);
 
-        HtmlPage page = (HtmlPage) webClient.getPage("http://proxy.ipcn.org/proxylist.html");
+        HtmlPage page = (HtmlPage) webClient.getPage(url);
         String proxyContent = page.getByXPath("/html/body/table/tbody/tr/td/pre/text()").get(0).toString();
 
         Pattern ipMatcher = Pattern.compile("\\d+\\.\\d+\\.\\d+\\.\\d+:\\d+");
@@ -30,7 +39,6 @@ public class IPCNCrawler extends Crawler {
             setIP(proxy, ipWithPorts);
             proxyList.add(proxy);
         }
-
         return proxyList;
     }
 }

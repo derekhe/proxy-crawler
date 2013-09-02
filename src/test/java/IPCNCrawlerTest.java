@@ -24,7 +24,7 @@ public class IPCNCrawlerTest extends CrawlerTestBase {
     public void should_get_proxy_list_from_ipcn() throws IOException, JaxenException {
         List<Proxy> proxies = crawler.fetch();
 
-        assertThat(proxies.size(), is(greaterThan(100)));
+        assertThat(proxies.size(), is(greaterThan(400)));
     }
 
     @Test
