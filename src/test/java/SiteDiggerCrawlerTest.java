@@ -36,12 +36,7 @@ public class SiteDiggerCrawlerTest {
 
         for (Proxy proxy : proxyList) {
             String ip = proxy.getIP();
-            String[] split = ip.split(Pattern.quote("."));
-            assertThat(split.length, is(4));
-            assertThat(Integer.parseInt(split[0]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
-            assertThat(Integer.parseInt(split[1]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
-            assertThat(Integer.parseInt(split[2]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
-            assertThat(Integer.parseInt(split[3]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
+            checkIP(ip);
         }
     }
 
@@ -53,5 +48,14 @@ public class SiteDiggerCrawlerTest {
             String port = proxy.getPort();
             assertThat(Integer.parseInt(port), is(greaterThan(0)));
         }
+    }
+
+    private void checkIP(String ip) {
+        String[] split = ip.split(Pattern.quote("."));
+        assertThat(split.length, is(4));
+        assertThat(Integer.parseInt(split[0]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
+        assertThat(Integer.parseInt(split[1]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
+        assertThat(Integer.parseInt(split[2]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
+        assertThat(Integer.parseInt(split[3]), allOf(greaterThanOrEqualTo(0), lessThanOrEqualTo(255)));
     }
 }

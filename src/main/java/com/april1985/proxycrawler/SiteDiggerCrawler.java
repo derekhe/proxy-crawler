@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class SiteDiggerCrawler implements Crawler {
+public class SiteDiggerCrawler extends Crawler {
     @Override
     public List<Proxy> fetch() throws IOException, JaxenException {
         WebClient webClient = new WebClient();
@@ -29,10 +29,4 @@ public class SiteDiggerCrawler implements Crawler {
         return proxies;
     }
 
-    private void setIP(Proxy proxy, String ipWithPort) {
-        String[] split = ipWithPort.split(Pattern.quote(":"));
-
-        proxy.setIP(split[0]);
-        proxy.setPort(split[1]);
-    }
 }
