@@ -1,5 +1,10 @@
+import com.april1985.proxycrawler.Crawler;
 import com.april1985.proxycrawler.Proxy;
+import org.hamcrest.core.Is;
+import org.jaxen.JaxenException;
+import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -10,7 +15,9 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
-public class CrawlerTestBase {
+public abstract class CrawlerTestBase {
+    protected Crawler crawler;
+
     protected void checkIP(List<Proxy> proxyList) {
         for (Proxy proxy : proxyList) {
             String ip = proxy.getIP();
@@ -31,5 +38,26 @@ public class CrawlerTestBase {
             String port = proxy.getPort();
             assertThat(Integer.parseInt(port), is(greaterThan(0)));
         }
+    }
+
+    @Test
+    public void should_get_proxy_list() throws IOException, JaxenException {
+        List<Proxy> proxies = crawler.fetch();
+
+        assertThat(proxies.size(), Is.is(greaterThan(100)));
+    }
+
+    @Test
+    public void should_get_port() throws IOException, JaxenException {
+        List<Proxy> proxies = crawler.fetch();
+
+        checkPort(proxies);
+    }
+
+    @Test
+    public void should_get_ip() throws IOException, JaxenException {
+        List<Proxy> proxies = crawler.fetch();
+
+        checkIP(proxies);
     }
 }
