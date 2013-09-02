@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class IPCNCrawlerTest {
+public class IPCNCrawlerTest extends CrawlerTestBase {
     private Crawler crawler;
 
     @Before
@@ -25,5 +25,19 @@ public class IPCNCrawlerTest {
         List<Proxy> proxies = crawler.fetch();
 
         assertThat(proxies.size(), is(greaterThan(100)));
+    }
+
+    @Test
+    public void should_get_port_from_ipcn() throws IOException, JaxenException {
+        List<Proxy> proxies = crawler.fetch();
+
+        checkPort(proxies);
+    }
+
+    @Test
+    public void should_get_ip_from_ipcn() throws IOException, JaxenException {
+        List<Proxy> proxies = crawler.fetch();
+
+        checkIP(proxies);
     }
 }

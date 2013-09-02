@@ -8,12 +8,13 @@ import org.jaxen.JaxenException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class SiteDiggerCrawler extends Crawler {
     @Override
     public List<Proxy> fetch() throws IOException, JaxenException {
         WebClient webClient = new WebClient();
+        webClient.setJavaScriptEnabled(false);
+
         HtmlPage page = (HtmlPage) webClient.getPage("http://www.site-digger.com/html/articles/20110516/proxieslist.html");
         List<DomText> texts = page.getByXPath("/html/body/div[2]/div/div[2]/div/div[2]/div[3]/table/tbody/tr/td/text()");
 
