@@ -2,7 +2,6 @@ package com.april1985.proxycrawler;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.jaxen.JaxenException;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public class IPCNCrawler extends Crawler {
 
     @Override
-    public List<Proxy> fetch() throws IOException, JaxenException {
+    public List<Proxy> fetch() throws IOException {
         List<Proxy> proxyList = getFromPage("http://proxy.ipcn.org/proxylist.html");
         List<Proxy> proxyLists2 = getFromPage("http://proxy.ipcn.org/proxylist2.html");
 
@@ -19,7 +18,7 @@ public class IPCNCrawler extends Crawler {
         return proxyList;
     }
 
-    private List<Proxy> getFromPage(String url) throws IOException, JaxenException {
+    private List<Proxy> getFromPage(String url) throws IOException {
         WebClient webClient = new WebClient();
         webClient.setJavaScriptEnabled(false);
 

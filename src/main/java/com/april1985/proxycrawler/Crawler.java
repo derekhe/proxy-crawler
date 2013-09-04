@@ -1,7 +1,5 @@
 package com.april1985.proxycrawler;
 
-import org.jaxen.JaxenException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.regex.Pattern;
 
 public abstract class Crawler {
 
-    abstract public List<Proxy> fetch() throws IOException, JaxenException;
+    abstract public List<Proxy> fetch() throws IOException;
 
     protected void setIP(Proxy proxy, String ipWithPort) {
         String[] split = ipWithPort.split(Pattern.quote(":"));

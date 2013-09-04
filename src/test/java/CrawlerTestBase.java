@@ -1,7 +1,6 @@
 import com.april1985.proxycrawler.Crawler;
 import com.april1985.proxycrawler.Proxy;
 import org.hamcrest.core.Is;
-import org.jaxen.JaxenException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -41,21 +40,21 @@ public abstract class CrawlerTestBase {
     }
 
     @Test
-    public void should_get_proxy_list() throws IOException, JaxenException {
+    public void should_get_proxy_list() throws IOException {
         List<Proxy> proxies = crawler.fetch();
 
-        assertThat(proxies.size(), Is.is(greaterThan(100)));
+        assertThat(proxies.size(), Is.is(greaterThan(50)));
     }
 
     @Test
-    public void should_get_port() throws IOException, JaxenException {
+    public void should_get_port() throws IOException {
         List<Proxy> proxies = crawler.fetch();
 
         checkPort(proxies);
     }
 
     @Test
-    public void should_get_ip() throws IOException, JaxenException {
+    public void should_get_ip() throws IOException {
         List<Proxy> proxies = crawler.fetch();
 
         checkIP(proxies);
